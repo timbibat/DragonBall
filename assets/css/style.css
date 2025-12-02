@@ -1,0 +1,115 @@
+:root {
+    --bs-primary: #F85B1A;
+    /* Goku Gi Orange */
+    --bs-primary-rgb: 248, 91, 26;
+
+    --bs-secondary: #004595;
+    /* Vegeta/Undershirt Blue */
+    --bs-secondary-rgb: 0, 69, 149;
+
+    --bs-success: #3F9208;
+    /* Namekian/Shenron Green */
+    --bs-success-rgb: 63, 146, 8;
+
+    --bs-danger: #E30022;
+    /* Red Ribbon / Kaioken Red */
+    --bs-danger-rgb: 227, 0, 34;
+
+    --bs-warning: #FFD700;
+    /* Super Saiyan Gold */
+    --bs-warning-rgb: 255, 215, 0;
+
+    --bs-info: #2196F3;
+    /* Ki Blast Cyan */
+    --bs-info-rgb: 33, 150, 243;
+
+    --bs-light: #F0F4F8;
+    /* Cloud White */
+    --bs-light-rgb: 240, 244, 248;
+
+    --bs-dark: #1A1A1A;
+    /* Space Black */
+    --bs-dark-rgb: 26, 26, 26;
+
+    /* Link colors */
+    --bs-link-color: #F85B1A;
+    --bs-link-hover-color: #FFD700;
+
+    /* Border radius - sharper for anime feel */
+    --bs-border-radius: 0.2rem;
+    --bs-border-radius-lg: 0.4rem;
+}
+
+body, h1, h2, h3, h4, h5, span {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.db-card {
+    position: relative;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid rgba(248, 91, 26, 0.3);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.db-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    border-color: #FFD700;
+}
+
+.db-card .card-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform .3s ease;
+}
+
+.db-card:hover .card-img {
+    transform: scale(1.1);
+}
+
+.db-card .name-overlay {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background: rgba(0, 69, 149, 0.9); 
+    border-top: 2px solid #F85B1A;
+    text-align: center;
+}
+
+.db-card .name-overlay h5 {
+    margin: 0;
+    color: #fff;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+@media (max-width: 576px) {
+    .db-card .card-img {
+        height: 220px;
+    }
+
+    .db-card .name-overlay h5 {
+        font-size: 1rem;
+    }
+}
+
+.db-card:focus-within,
+.db-card:focus {
+    outline: 3px solid rgba(248, 91, 26, 0.5);
+    outline-offset: 4px;
+}
+
+.parchment-panel {
+    background: #ffffff;
+    border-left: 5px solid #F85B1A;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 1rem;
+    border-radius: 0.2rem;
+}

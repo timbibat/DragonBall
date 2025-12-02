@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dragon Ball Universe</title>
+    <link rel="icon" type="image/png" href="assets/img/db.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="bg-dark text-light" id="body">
+
+    <nav id="mainNav"
+        class="navbar navbar-expand-lg navbar-dark bg-black sticky-top shadow border-bottom border-primary border-3 transition-colors">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-warning d-flex align-items-center" href="#">
+                <img src="assets/img/db_logo.png" alt="DB Logo" height="50" class="me-3">
+                <span class="d-none d-sm-block fst-italic" style="letter-spacing: 2px; font-weight: 900;">DB
+                    ARCHIVE</span>
+            </a>
+
+            <div class="d-flex align-items-center order-lg-3 ms-lg-3">
+                <button id="themeToggle" class="btn btn-link nav-link text-warning fs-5" onclick="toggleTheme()"
+                    aria-label="Toggle Power Level">
+                    <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+                </button>
+            </div>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto text-uppercase small fw-bold letter-spacing-2 mt-3 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom text-warning active" href="#home"
+                            onclick="setActiveLink(this)">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="#characters"
+                            onclick="setActiveLink(this)">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="#about" onclick="setActiveLink(this)">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="d-flex align-items-center justify-content-center text-white text-center position-relative"
+        style="min-height: 90vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('assets/img/db_house.jpg') center/cover no-repeat fixed;">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-25"></div>
+        <div class="container position-relative z-1">
+            <img src="assets/img/ball.png" width="120" class="mb-4 d-none d-md-inline-block drop-shadow">
+            <h1 class="display-1 fw-bold mb-3 text-white fst-italic"
+                style="text-shadow: 3px 3px 0px #F85B1A, 0 0 20px rgba(255, 215, 0, 0.8);">
+                THE DRAGON BALL UNIVERSE
+            </h1>
+            <p class="lead fs-4 mb-5 text-light fw-bold"
+                style="max-width: 700px; margin: 0 auto; text-shadow: 2px 2px 4px #000;">
+                The comprehensive encyclopedia of every Saiyan, Earthling, God, and Villain from the original series.
+            </p>
+            <a href="#characters"
+                class="btn btn-primary btn-lg px-5 py-3 rounded-0 text-uppercase fw-bold tracking-wider border-2 border-warning shadow">
+                View Directory
+            </a>
+        </div>
+    </section>
+
+    <section id="characters" class="py-5 transition-colors" style="background-color: #0b0f19;">
+        <div class="container py-4">
+            <div class="row mb-5 text-center">
+                <div class="col-12">
+                    <h2 id="charTitle" class="display-5 fw-bold text-white mb-3 fst-italic">CHARACTERS</h2>
+                    <div class="d-flex justify-content-center">
+                        <div class="bg-primary" style="height: 5px; width: 60px; margin-right: 10px;"></div>
+                        <div class="bg-warning" style="height: 5px; width: 60px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4" id="cardContainer">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-5 bg-black border-top border-secondary border-opacity-25 transition-colors">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-8 text-center">
+                    <h2 id="aboutTitle" class="display-6 fw-bold mb-4 text-warning fst-italic">CAPSULE CORP DATABASE
+                    </h2>
+                    <p id="aboutText" class="lead text-secondary mb-4">
+                        This archive is not just for warriors. It is a complete record of the vast Dragon Ball world
+                        created by Akira Toriyama.
+                        Here you will find data on the Capsule Corp scientists who built the future, the Kais who watch
+                        over the universe,
+                        the tyrants who sought to destroy it, and the planets where history was made.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="mainFooter"
+        class="bg-black text-secondary py-5 border-top border-primary border-opacity-50 transition-colors">
+        <div class="container">
+            <div class="row g-4 justify-content-between align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <h5 id="footerTitle" class="text-white mb-1 fst-italic">DRAGON BALL ARCHIVE</h5>
+                    <small>&copy; 2025 Capsule Corporation.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p id="devText" class="mb-0 text-white-50">Database Developed by: <br> Timothy Bibat <br> BSIT 3-1
+                        • Submitted to: Sir Christopher De Claro</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function setActiveLink(clickedElement) {
+            const navLinks = document.querySelectorAll('.nav-link-custom');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                link.classList.remove('text-warning');
+            });
+            clickedElement.classList.add('active');
+            clickedElement.classList.add('text-warning');
+
+            const navbarCollapse = document.getElementById('navbarNav');
+            if (navbarCollapse.classList.contains('show')) {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                bsCollapse.hide();
+            }
+        }
+
+        function highlightNavOnScroll() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link-custom');
+
+            let currentSectionId = "home";
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (window.scrollY >= (sectionTop - 150)) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                link.classList.remove('text-warning');
+                if (link.getAttribute('href').includes(currentSectionId)) {
+                    link.classList.add('active');
+                    link.classList.add('text-warning');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightNavOnScroll);
+
+        let isDarkMode = localStorage.getItem('theme') !== 'light';
+
+        function applyTheme() {
+            const body = document.getElementById('body');
+            const nav = document.getElementById('mainNav');
+            const icon = document.getElementById('themeIcon');
+            const charSection = document.getElementById('characters');
+            const charTitle = document.getElementById('charTitle');
+            const aboutSection = document.getElementById('about');
+            const aboutText = document.getElementById('aboutText');
+            const footer = document.getElementById('mainFooter');
+            const footerTitle = document.getElementById('footerTitle');
+            const devText = document.getElementById('devText');
+
+            if (!isDarkMode) {
+                body.classList.replace('bg-dark', 'bg-light');
+                body.classList.replace('text-light', 'text-dark');
+                nav.classList.remove('navbar-dark', 'bg-black');
+                nav.classList.add('navbar-light', 'bg-white');
+                icon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                charSection.style.backgroundColor = "#eef2f7";
+                charTitle.classList.replace('text-white', 'text-dark');
+                body.classList.add('light-mode-active');
+                aboutSection.classList.remove('bg-black');
+                aboutSection.classList.add('bg-white');
+                aboutTitle.classList.replace('text-warning', 'text-primary');
+                aboutText.classList.replace('text-secondary', 'text-dark');
+                footer.classList.remove('bg-black');
+                footer.classList.add('bg-light');
+                footerTitle.classList.replace('text-white', 'text-dark');
+                devText.classList.replace('text-white-50', 'text-muted');
+            } else {
+                body.classList.replace('bg-light', 'bg-dark');
+                body.classList.replace('text-dark', 'text-light');
+                nav.classList.remove('navbar-light', 'bg-white');
+                nav.classList.add('navbar-dark', 'bg-black');
+                icon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                charSection.style.backgroundColor = "#0b0f19";
+                charTitle.classList.replace('text-dark', 'text-white');
+                body.classList.remove('light-mode-active');
+                aboutSection.classList.remove('bg-white');
+                aboutSection.classList.add('bg-black');
+                aboutTitle.classList.replace('text-primary', 'text-warning');
+                aboutText.classList.replace('text-dark', 'text-secondary');
+                footer.classList.remove('bg-light');
+                footer.classList.add('bg-black');
+                footerTitle.classList.replace('text-dark', 'text-white');
+                devText.classList.replace('text-muted', 'text-white-50');
+            }
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            applyTheme();
+        }
+        applyTheme();
+    </script>
+</body>
+
+</html>
