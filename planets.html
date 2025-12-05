@@ -42,8 +42,7 @@
                             onclick="setActiveLink(this)">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom" href="#characters"
-                            onclick="setActiveLink(this)">Directory</a>
+                        <a class="nav-link nav-link-custom" href="#planets" onclick="setActiveLink(this)">Planets</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom" href="#about" onclick="setActiveLink(this)">About</a>
@@ -66,26 +65,27 @@
                 style="max-width: 700px; margin: 0 auto; text-shadow: 2px 2px 4px #000;">
                 The comprehensive encyclopedia of every Saiyan, Earthling, God, and Villain from the original series.
             </p>
-            <a href="#characters"
+            <a href="#planets"
                 class="btn btn-primary btn-lg px-5 py-3 rounded-0 text-uppercase fw-bold tracking-wider border-2 border-warning shadow">
                 View Directory
             </a>
         </div>
     </section>
 
-    <section id="characters" class="py-5 transition-colors" style="background-color: #0b0f19;">
+    <section id="planets" class="py-5 transition-colors" style="background-color: #0b0f19;">
         <div class="container py-4">
             <div class="row mb-5 text-center">
                 <div class="col-12">
                     <div class="d-flex justify-content-center align-items-center gap-3">
-                        <h2 id="charTitle" class="display-5 fw-bold text-white mb-0 fst-italic">CHARACTERS</h2>
-                        <a href="planets.html#planets"
-                            class="btn btn-outline-warning rounded-circle d-flex align-items-center justify-content-center border-2 shadow-lg"
+                        <a href="index.html#characters"
+                            class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center border-2 shadow-lg"
                             style="width: 50px; height: 50px; transition: all 0.3s ease;"
-                            onmouseover="this.style.boxShadow='0 0 15px #ffc107'; this.style.transform='scale(1.1)'"
+                            onmouseover="this.style.boxShadow='0 0 15px #0d6efd'; this.style.transform='scale(1.1)'"
                             onmouseout="this.style.boxShadow='none'; this.style.transform='scale(1)'">
-                            <i class="bi bi-chevron-right fw-bold fs-4"></i>
+                            <i class="bi bi-chevron-left fw-bold fs-4"></i>
                         </a>
+
+                        <h2 id="charTitle" class="display-5 fw-bold text-white mb-0 fst-italic">PLANETS</h2>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <div class="bg-primary" style="height: 5px; width: 60px; margin-right: 10px;"></div>
@@ -107,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="row g-4" id="cardContainer">
+            <div class="row g-4" id="planetContainer">
             </div>
         </div>
     </section>
@@ -150,7 +150,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <script src="assets/js/characters.js"></script>
+    <script src="assets/js/planets.js"></script>
 
     <script>
         function setActiveLink(clickedElement) {
@@ -202,7 +202,7 @@
             const body = document.getElementById('body');
             const nav = document.getElementById('mainNav');
             const icon = document.getElementById('themeIcon');
-            const charSection = document.getElementById('characters');
+            const charSection = document.getElementById('planets');
             const charTitle = document.getElementById('charTitle');
             const aboutSection = document.getElementById('about');
             const aboutText = document.getElementById('aboutText');
@@ -252,7 +252,7 @@
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
             applyTheme();
 
-            loadCharacters();
+            loadPlanets();
         }
         applyTheme();
     </script>
