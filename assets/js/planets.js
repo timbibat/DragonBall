@@ -5,7 +5,18 @@ var planetPagination = document.getElementById("paginationControls");
 var page = 1;
 var totalPages = 1;
 
-const loadPlanets = async () => {
+function searchPlanets() {
+    var searchTerm = document.getElementById("searchInput").value;
+    page = 1;
+    loadPlanets(searchTerm);
+}
+
+function resetSearch() {
+    document.getElementById("searchInput").value = "";
+    loadPlanets();
+}
+
+const loadPlanets = async (searchTerm = "") => {
     planetContainer.innerHTML = "";
     planetLoadingBar.style.width = "20%";
     planetLoadingBar.innerText = "SCANNING GALAXY...";
@@ -13,33 +24,54 @@ const loadPlanets = async () => {
     const isDarkMode = localStorage.getItem('theme') !== 'light';
     const cardBgClass = isDarkMode ? "bg-dark text-white" : "bg-white text-dark border";
 
+    let url;
+    if (searchTerm) {
+        url = `https://dragonball-api.com/api/planets?name=${searchTerm}`;
+    } else {
+        url = `https://dragonball-api.com/api/planets?page=${page}&limit=8`;
+    }
+
     try {
-        const response = await fetch(`https://dragonball-api.com/api/planets?page=${page}&limit=8`);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Planet not found");
         const data = await response.json();
+        let planetList = [];
+        
+        if (Array.isArray(data)) {
+            planetList = data;
+            planetPagination.style.display = "none"; 
+        } else {
+            planetList = data.items;
+            totalPages = data.meta.totalPages;
+            planetPagination.style.display = "flex";
+            updatePagination();
+        }
 
-        totalPages = data.meta.totalPages;
-
-        data.items.forEach((planet) => {
+        planetList.forEach((planet) => {
             const statusBadge = planet.isDestroyed
-                ? '<span class="badge bg-danger shadow-sm">DESTROYED</span>'
-                : '<span class="badge bg-success shadow-sm">INTACT</span>';
+                ? '<span class="badge rounded-pill bg-danger shadow-sm">DESTROYED</span>'
+                : '<span class="badge rounded-pill bg-success shadow-sm">INTACT</span>';
 
             planetContainer.innerHTML += `
-             <div class="col-12 col-sm-6 col-md-4 col-lg-3 fade-in">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 fade-in">
                 <div class="card h-100 shadow-lg overflow-hidden ${cardBgClass}">
-                    
                     <div class="card-img-top position-relative p-0" style="height: 200px; overflow: hidden;">
                         <img src="${planet.image}" class="w-100 h-100" style="object-fit: cover; filter: brightness(0.8);">
-                        <div class="position-absolute top-0 end-0 m-2">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="fw-bold text-warning fst-italic text-uppercase mb-2">${planet.name}</h5>
+                        <div class="mb-3">
                             ${statusBadge}
                         </div>
-                    </div>
-
-                    <div class="card-body text-center">
-                        <h4 class="fw-bold text-warning fst-italic text-uppercase mb-2">${planet.name}</h4>
-                        <p class="small opacity-75 text-truncate" style="max-height: 50px;">
-                            ${planet.description || "No description available."}
-                        </p>
+                        <hr class="my-1 border-secondary opacity-25">
+                        <div class="d-flex flex-column justify-content-center mt-3 small flex-grow-1">
+                             <div class="d-flex flex-column align-items-center">
+                                <span class="text-secondary fw-bold text-uppercase" style="font-size: 0.75rem;">Description</span>
+                                <p class="opacity-75 mt-1 mb-0" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                    ${planet.description || "No description available."}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>`;
@@ -49,11 +81,19 @@ const loadPlanets = async () => {
         planetLoadingBar.innerText = "COMPLETE";
         setTimeout(() => { planetLoadingBar.style.width = "0%"; planetLoadingBar.innerText = ""; }, 500);
 
-        updatePagination();
-
     } catch (error) {
         console.error("Error loading planets:", error);
-        planetContainer.innerHTML = "<p class='text-center'>Failed to load data. The server might be down.</p>";
+        planetLoadingBar.style.width = "0%";
+        planetPagination.style.display = "none";
+        
+        planetContainer.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-globe2 display-1 text-secondary mb-3"></i>
+                <h3 class="${isDarkMode ? 'text-white' : 'text-dark'}">No Planet Found</h3>
+                <p class="text-secondary">The coordinates for "${searchTerm}" do not exist in the archive.</p>
+                <button class="btn btn-outline-warning" onclick="resetSearch()">Return to Galaxy Map</button>
+            </div>
+        `;
     }
 }
 

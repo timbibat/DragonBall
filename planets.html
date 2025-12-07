@@ -96,6 +96,20 @@
 
             <div class="row mb-4">
                 <div class="col-12">
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" id="searchInput" class="form-control border-secondary"
+                                    placeholder="Search Planet (e.g. Namek)...">
+                                <button class="btn btn-warning fw-bold" type="button" onclick="searchPlanets()">
+                                    <i class="bi bi-search"></i> Search
+                                </button>
+                                <button class="btn btn-outline-secondary" type="button" onclick="resetSearch()">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="progress mb-4" style="height: 5px; background-color: #333;">
                         <div id="loadingBar" class="progress-bar bg-warning" role="progressbar" style="width: 0%">
                         </div>
@@ -251,8 +265,8 @@
             isDarkMode = !isDarkMode;
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
             applyTheme();
-
-            loadPlanets();
+            var currentSearch = document.getElementById("searchInput").value;
+            loadPlanets(currentSearch);
         }
         applyTheme();
     </script>

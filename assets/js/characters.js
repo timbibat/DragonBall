@@ -17,55 +17,101 @@ var paginationControls = document.getElementById("paginationControls");
 var page = 1;
 var totalPages = 1;
 
-const loadCharacters = async () => {
+function searchCharacters() {
+    var searchTerm = document.getElementById("searchInput").value;
+    page = 1;
+    loadCharacters(searchTerm);
+}
+
+function resetSearch() {
+    document.getElementById("searchInput").value = "";
+    loadCharacters();
+}
+
+const loadCharacters = async (searchTerm = "") => {
     cardContainer.innerHTML = "";
     loadingBar.style.width = "20%";
-    loadingBar.innerText = "SCANNING CHARACTERS...";
-
     const isDarkMode = localStorage.getItem('theme') !== 'light';
-
     const cardBgClass = isDarkMode ? "bg-dark text-white" : "bg-white text-dark border";
 
+    let url;
+    if (searchTerm) {
+        url = `https://dragonball-api.com/api/characters?name=${searchTerm}`;
+    } else {
+        url = `https://dragonball-api.com/api/characters?page=${page}&limit=12`;
+    }
+
     try {
-        const response = await fetch(`https://dragonball-api.com/api/characters?page=${page}&limit=12`);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Character not found");
         const data = await response.json();
+        let characterList = [];
 
-        totalPages = data.meta.totalPages;
+        if (Array.isArray(data)) {
+            characterList = data;
+            paginationControls.style.display = "none";
+        } else {
+            characterList = data.items;
+            totalPages = data.meta.totalPages;
+            paginationControls.style.display = "flex";
+            updatePagination();
+        }
 
-        data.items.forEach((character) => {
+        characterList.forEach((character) => {
             var themeColor = raceColors[character.race] || "#DCD0C0";
 
             cardContainer.innerHTML += `
-                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 fade-in">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 fade-in">
                     <div class="card h-100 shadow-lg ${cardBgClass}">
                         <div class="card-img-top d-flex justify-content-center align-items-center p-3" 
                              style="background: radial-gradient(circle, ${themeColor}40, transparent 70%); height: 250px;">
                             <img src="${character.image}" class="img-fluid" style="max-height: 100%; object-fit: contain;">
                         </div>
-                        <div class="card-body text-center">
-                            <h5 class="fw-bold text-warning fst-italic">${character.name}</h5>
-                            <span class="badge" style="background-color: ${themeColor}; color: black;">${character.race}</span>
-                            <div class="small opacity-75 mt-2">
-                                <span class="text-secondary fw-bold">Ki:</span>
-                                <span class="fw-bold">${character.ki}</span></div>
-                            <div class="small opacity-75 mt-2">
-                                <span class="text-secondary fw-bold">Max Ki:</span>
-                                <span class="fw-bold text-warning">${character.maxKi}</span></div>
-                            <div class="small opacity-75 mt-2">
-                                <span class="text-secondary fw-bold">Affiliation:</span>
-                                <span class="fst-italic text-info fw-bold">${character.affiliation}</span></div>
+                        <div class="card-body text-center d-flex flex-column">
+                            <h5 class="fw-bold text-warning fst-italic mb-2">${character.name}</h5>
+                            
+                            <div class="mb-3">
+                                <span class="badge rounded-pill shadow-sm" style="background-color: ${themeColor}; color: black; font-size: 0.9rem;">
+                                    ${character.race}
+                                </span>
+                            </div>
+                            <hr class="my-1 border-secondary opacity-25">
+                            <div class="d-flex flex-column justify-content-center gap-1 mt-2 small">
+                                <div class="d-flex justify-content-between px-3">
+                                    <span class="text-secondary fw-bold">Ki:</span>
+                                    <span class="fw-bold">${character.ki}</span>
+                                </div>
+                                <div class="d-flex justify-content-between px-3">
+                                    <span class="text-secondary fw-bold">Max Ki:</span>
+                                    <span class="fw-bold text-warning">${character.maxKi}</span>
+                                </div>
+                                <div class="d-flex justify-content-between px-3">
+                                    <span class="text-secondary fw-bold">Affiliation:</span>
+                                    <span class="fst-italic text-info">${character.affiliation}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>`;
         });
 
         loadingBar.style.width = "100%";
-        setTimeout(() => { loadingBar.style.width = "0%"; }, 500);
-        updatePagination();
+        loadingBar.innerText = "COMPLETE";
+        setTimeout(() => { loadingBar.style.width = "0%"; loadingBar.innerText = ""; }, 500);
 
     } catch (error) {
-        console.error("Error loading characters:", error);
-        cardContainer.innerHTML = "<p class='text-center'>Failed to load data. The server might be down.</p>";
+        console.error("Error:", error);
+        loadingBar.style.width = "0%";
+        paginationControls.style.display = "none";
+
+        cardContainer.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-question-circle display-1 text-secondary mb-3"></i>
+                <h3 class="text-white">No Character Found</h3>
+                <p class="text-secondary">We couldn't find "${searchTerm}" in the database.</p>
+                <button class="btn btn-outline-warning" onclick="resetSearch()">Return to Archive</button>
+            </div>
+        `;
     }
 }
 
