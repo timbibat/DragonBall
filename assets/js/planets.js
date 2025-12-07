@@ -36,10 +36,10 @@ const loadPlanets = async (searchTerm = "") => {
         if (!response.ok) throw new Error("Planet not found");
         const data = await response.json();
         let planetList = [];
-        
+
         if (Array.isArray(data)) {
             planetList = data;
-            planetPagination.style.display = "none"; 
+            planetPagination.style.display = "none";
         } else {
             planetList = data.items;
             totalPages = data.meta.totalPages;
@@ -85,7 +85,7 @@ const loadPlanets = async (searchTerm = "") => {
         console.error("Error loading planets:", error);
         planetLoadingBar.style.width = "0%";
         planetPagination.style.display = "none";
-        
+
         planetContainer.innerHTML = `
             <div class="col-12 text-center py-5">
                 <i class="bi bi-globe2 display-1 text-secondary mb-3"></i>
