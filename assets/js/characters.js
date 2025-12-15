@@ -48,6 +48,8 @@ const loadCharacters = async (searchTerm = "") => {
         let characterList = [];
 
         if (Array.isArray(data)) {
+            if (data.length === 0) throw new Error("No characters found");
+
             characterList = data;
             paginationControls.style.display = "none";
         } else {

@@ -38,6 +38,8 @@ const loadPlanets = async (searchTerm = "") => {
         let planetList = [];
 
         if (Array.isArray(data)) {
+            if (data.length === 0) throw new Error("No planets found");
+
             planetList = data;
             planetPagination.style.display = "none";
         } else {
