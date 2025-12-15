@@ -109,7 +109,7 @@ const loadCharacters = async (searchTerm = "") => {
         cardContainer.innerHTML = `
             <div class="col-12 text-center py-5">
                 <i class="bi bi-question-circle display-1 text-secondary mb-3"></i>
-                <h3 class="text-white">No Character Found</h3>
+                <h3 class="${isDarkMode ? 'text-white' : 'text-dark'}">No Character Found</h3>
                 <p class="text-secondary">We couldn't find "${searchTerm}" in the database.</p>
                 <button class="btn btn-outline-warning" onclick="resetSearch()">Return to Archive</button>
             </div>
@@ -156,9 +156,9 @@ function updatePagination() {
 
     var nextDisabled = (page >= totalPages) ? "disabled" : "";
     paginationControls.innerHTML += `
-            <button class="btn ${btnBaseClass} px-3" onclick="nextPage()" ${nextDisabled}>
-                <i class="bi bi-caret-right-fill"></i>
-            </button>`;
+        <button class="btn ${btnBaseClass} px-3" onclick="nextPage()" ${nextDisabled}>
+            <i class="bi bi-caret-right-fill"></i>
+        </button>`;
 }
 
 function nextPage() {
